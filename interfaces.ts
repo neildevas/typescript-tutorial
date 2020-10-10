@@ -71,19 +71,68 @@ interface InvalidUser {
 interface Employee {
   id: number;
   department: string;
+  getSupervisor: () => number;
 }
 
 class SoftwareEngineer implements Employee {
   public id: number;
   public department: string;
-  private supervisorId: number;
+  private readonly supervisorId: number;
   constructor(id, department, supervisorId) {
     this.id = id;
     this.department = department;
     this.supervisorId = supervisorId;
   }
+  getSupervisor() {
+    return this.supervisorId;
+  }
 }
 
 const engineer = new SoftwareEngineer(1, 'Machine learning', 49);
-console.log('Supervisor id', engineer.supervisorId); // Invalid since supervisorId is private
+console.log('Invalid supervisor id', engineer.supervisorId); // Invalid since supervisorId is private
 console.log('Employee id', engineer.id);
+console.log('Valid supervisor id', engineer.getSupervisor()); // Valid
+
+
+/* Extending interfaces */
+interface Manager extends Employee {
+  teamName: string;
+}
+
+const myEmployee: Employee = {
+  id: 1,
+  department: 'Web development',
+  getSupervisor: () => 2
+};
+
+const myManager: Manager = {
+  teamName: 'jabberwocky',
+  id: 2,
+  department: 'Web development',
+  getSupervisor: function () {
+    return 100
+  }
+};
+
+interface Salary {
+  salary: number;
+}
+
+interface Executive extends Manager, Salary {
+  title: string;
+}
+
+const cto: Executive = {
+  id: 0,
+  department: "Technology",
+  getSupervisor: function () {
+    return 0;
+  },
+  salary: 0,
+  title: 'CTO',
+  teamName: 'FooBar Inc.'
+};
+
+
+/* Interfaces extending classes */
+/* TODO - come back to this after reviewing inheritance */
