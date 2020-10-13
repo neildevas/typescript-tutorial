@@ -12,6 +12,7 @@ function printFirstName(person: Person) {
 }
 
 const person: StrictPerson = { firstName: 'Jane', lastName: 'Doe' };
+
 printFirstName(person); // Works, because it has at least the requirements listed by the function
 printFirstName({ firstName: 'Bob', lastName: 'builder' }); // Doesn't work. Object literals undergo MORE typechecking. Any extra properties are considered invalid
 const newPerson = { firstName: 'Bob', lastName: 'builder' };
@@ -61,9 +62,9 @@ console.log(searchForString('Water bottle', 'bottle'));
 
 /* Indexable Types */
 interface InvalidUser {
-  [userIndex: string]: string;
   id: number; // not valid, because the value of the property does not match the index return value
   firstName: string; // valid
+  [userIndex: string]: string;
 }
 
 /* Class types */
